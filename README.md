@@ -10,6 +10,15 @@
 npm install --save geo-feedback-react
 ```
 
+## Available components
+
+The components currently available in this package allow users to record feedbacks with star ratings and text reviews. An example of the available components in this package is presented in the figure below:
+
+<div align="center">
+    <img src=".github/geo-feedback-react.png", width="600px">
+</div>
+
+
 ## License
 
 MIT © [GEO Secretariat](https://github.com/geo-knowledge-hub)
