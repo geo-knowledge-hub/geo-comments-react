@@ -4,10 +4,5 @@
 // GEO Feedback React is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-// fields
-export * from './fields';
-
-// elements
-export { TextFeedback } from "./TextFeedback";
-export { StarsFeedback } from "./StarsFeedback";
-// export { ListUserFeedback } from "./ListUserFeedback"; 
+export { TextFeedbackField } from "./TextFeedbackField";
+export { StarsFeedbackField } from "./StarsFeedbackField";

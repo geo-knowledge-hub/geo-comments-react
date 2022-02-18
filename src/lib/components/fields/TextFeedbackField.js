@@ -11,7 +11,7 @@ import { FieldLabel, RichInputField } from "react-invenio-forms";
 
 /**
  * TextFeedbackField is a formik field that renders a text field for rating.
- * 
+ *
  * @param {object} props - Props passed to the component.
  * @param {string} props.fieldPath - The path to the field in the form values.
  * @param {string} props.label - The label of the field.
@@ -34,15 +34,15 @@ export class TextFeedbackField extends Component {
           optimized
         />
       </>
-    )
+    );
   }
-};
+}
 
 TextFeedbackField.propTypes = {
   fieldPath: PropTypes.string,
   label: PropTypes.string,
   labelIcon: PropTypes.string,
-  editorConfig: PropTypes.object
+  editorConfig: PropTypes.object,
 };
 
 TextFeedbackField.defaultProps = {

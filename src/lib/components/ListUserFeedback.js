@@ -6,8 +6,9 @@
 
 import React, { Component } from "react";
 
-import { Rating } from "semantic-ui-react";
-import { Field, FastField, getIn } from "formik";
+// ToDo: Implement this component
+// import { Rating } from "semantic-ui-react";
+// import { Field, FastField, getIn } from "formik";
 
 export default class ListUserFeedback extends Component {
     render() {
