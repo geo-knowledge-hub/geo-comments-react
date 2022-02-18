@@ -1,17 +1,40 @@
 {
   "name": "geo-feedback-react",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "browser": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "start": "react-scripts start",
-    "build-examples": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "build": "rimraf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+    "watch": "NODE_ENV=development rollup --watch -c",
+    "build": "rimraf dist && NODE_ENV=production rollup -c --failAfterWarnings",
+    "edit-linked-package": "json -I -f ./dist/package.json -e 'this.module=\"esm/index.js\", this.main=\"cjs/index.js\"' ",
+    "prelink-dist": "cp package.json ./dist && npm run edit-linked-package",
+    "link-dist": "cd dist && npm link",
+    "postlink-dist": "cd dist && rm -rf node_modules",
+    "unlink-dist": "cd dist && npm unlink && rm package*",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --write \"src/**/*.js\""
+  },
+  "author": {
+    "name": "GEO Secretariat",
+    "email": "secretariat@geosec.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geo-knowledge-hub/geo-feedback-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/geo-knowledge-hub/geo-feedback-react/issues"
+  },
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -19,10 +42,18 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
-    "rimraf": "^3.0.2"
-  },
-  "dependencies": {
-    "npm-install-peers": "^1.2.2"
+    "rimraf": "^3.0.2",
+    "urlcat": "^2.0.4",
+    "axios": "^0.21.1",
+    "formik": "^2.1.4",
+    "lodash": "^4.17.15",
+    "query-string": "^7.0.1",
+    "semantic-ui-react": "^0.88.0",
+    "semantic-ui-css": "^2.4.1",
+    "@babel/runtime": "^7.9.0",
+    "react-invenio-forms": "^0.9.0",
+    "@ckeditor/ckeditor5-build-classic": "^16.0.0",
+    "@ckeditor/ckeditor5-react": "^2.1.0"
   },
   "peerDependencies": {
     "urlcat": "^2.0.4",
@@ -50,5 +81,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
