@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import { Formik } from "formik";
 import { Button, Container, Form } from "semantic-ui-react";
 
-import { StarsFeedbackField, TextFeedbackField } from "../lib";
+import { StarsFeedback, TextFeedback } from "../lib";
 
 
 export default class App extends Component {
@@ -41,8 +41,15 @@ export default class App extends Component {
                 <h1>Feedback example app</h1>
                 <div>
                   <Form.Input type="text" placeholder="Name" name="name" onChange={handleChange} />
+                  
+                  <StarsFeedback
+                    icon="star"
+                    maxRating={5}
+                    defaultRating={3}
+                    fieldPath="feedback"
+                  />
 
-                  <TextFeedbackField
+                  <TextFeedback
                     fieldPath="comment"
                     editorConfig={{
                       removePlugins: [
@@ -59,13 +66,6 @@ export default class App extends Component {
                       ],
                     }}
                   />
-                  <StarsFeedbackField
-                    icon="star"
-                    maxRating={5}
-                    defaultRating={3}
-                    fieldPath="rating"
-                  />
-
                   <Button type="submit">Create feedback</Button>
                 </div>
               </Form>
