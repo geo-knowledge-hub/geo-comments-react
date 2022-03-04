@@ -4,10 +4,12 @@
 // GEO Feedback React is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-import React, { Component } from "react";
+import React from 'react';
 
-import { Rating } from "semantic-ui-react";
-import { Field, FastField, getIn } from "formik";
+import PropTypes from 'prop-types';
+
+import { Rating } from 'semantic-ui-react';
+import { Field, FastField, getIn } from 'formik';
 
 /**
  * StarsFeedbackField is a formik field that renders a star rating field.
@@ -16,35 +18,36 @@ import { Field, FastField, getIn } from "formik";
  * @param {string} props.fieldPath - The path to the field in the form values.
  * @param {object} props.* - Any other props passed to the semantic-ui Rating component.
  */
-export class StarsFeedbackField extends Component {
-  renderFormField = (formikBag) => {
-    const { fieldPath, value, onChange, ...uiProps } = this.props;
+export const StarsFeedbackField = (props) => {
+  const { fieldPath, category, ...uiProps } = props;
+  const fieldPathCategory = `${fieldPath}.${category.toLowerCase()}`;
 
+  const renderFormField = (formikBag) => {
     const onRateHandler = (event, data) => {
-      if (this.props.onChange) {
-        this.props.onChange({ event, data, formikBag });
-      } else {
-        formikBag.form.setFieldValue(fieldPath, getIn(data, fieldPath));
-      }
+      formikBag.form.setFieldValue(fieldPathCategory, getIn(data, 'rating'));
     };
 
     return (
       <Rating
         onRate={onRateHandler}
-        value={getIn(formikBag.form.values, fieldPath, "")}
+        rating={getIn(formikBag.form.values, fieldPathCategory, '')}
         {...uiProps}
-      />
+      ></Rating>
     );
   };
 
-  render() {
-    const FormikField = this.props.optimized ? FastField : Field;
+  const FormikField = props.optimized ? FastField : Field;
+  return <FormikField name={fieldPathCategory} component={renderFormField} />;
+};
 
-    return (
-      <FormikField
-        name={this.props.fieldPath}
-        component={this.renderFormField}
-      />
-    );
-  }
-}
+StarsFeedbackField.propTypes = {
+  fieldPath: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  uiProps: PropTypes.object,
+};
+
+StarsFeedbackField.defaultProps = {
+  fieldPath: 'feedback',
+  category: 'categoryOne',
+  uiProps: {},
+};
