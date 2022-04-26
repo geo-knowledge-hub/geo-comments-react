@@ -1,8 +1,10 @@
-// This file is part of GEO Feedback React
-// Copyright (C) 2021 GEO Secretariat.
-//
-// GEO Feedback React is free software; you can redistribute it and/or modify it
-// under the terms of the MIT License; see LICENSE file for more details.
+/*
+ * This file is part of GEO-Feedback-React.
+ * Copyright (C) 2022 GEO Secretariat.
+ *
+ * GEO-Feedback-React is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
 
-export { TextFeedbackField } from "./TextFeedbackField";
-export { StarsFeedbackField } from "./StarsFeedbackField";
+export { TextFeedbackField } from './TextFeedbackField';
+export { StarsFeedbackField } from './StarsFeedbackField';
