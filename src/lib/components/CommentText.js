@@ -1,36 +1,27 @@
 /*
- * This file is part of GEO-Feedback-React.
+ * This file is part of GEO-Comments-React.
  * Copyright (C) 2022 GEO Secretariat.
  *
- * GEO-Feedback-React is free software; you can redistribute it and/or modify it
+ * GEO-Comments-React is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { TextFeedbackField } from './fields/TextFeedbackField';
+import { CommentTextField } from './fields';
 
-export class TextFeedback extends Component {
-  render() {
-    return (
-      <>
-        <TextFeedbackField
-          fieldPath={this.props.fieldPath}
-          editorConfig={this.props.editorConfig}
-        />
-      </>
-    );
-  }
-}
+export const CommentText = ({ fieldPath, editorConfig }) => (
+  <CommentTextField fieldPath={fieldPath} editorConfig={editorConfig} />
+);
 
-TextFeedback.propTypes = {
+CommentText.propTypes = {
   fieldPath: PropTypes.string,
   editorConfig: PropTypes.object,
 };
 
-TextFeedback.defaultProps = {
+CommentText.defaultProps = {
   fieldPath: 'comment',
   editorConfig: {
     removePlugins: [

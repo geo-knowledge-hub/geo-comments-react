@@ -1,8 +1,8 @@
 /*
- * This file is part of GEO-Feedback-React.
+ * This file is part of GEO-Comments-React.
  * Copyright (C) 2022 GEO Secretariat.
  *
- * GEO-Feedback-React is free software; you can redistribute it and/or modify it
+ * GEO-Comments-React is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
@@ -14,13 +14,13 @@ import { Rating } from 'semantic-ui-react';
 import { Field, FastField, getIn } from 'formik';
 
 /**
- * StarsFeedbackField is a formik field that renders a star rating field.
+ * CommentTopicsField is a formik field that renders a star rating field.
  *
  * @param {object} props - The props passed to the component.
  * @param {string} props.fieldPath - The path to the field in the form values.
  * @param {object} props.* - Any other props passed to the semantic-ui Rating component.
  */
-export const StarsFeedbackField = (props) => {
+export const CommentTopicsField = (props) => {
   const { fieldPath, category, ...uiProps } = props;
   const fieldPathCategory = `${fieldPath}.${category.toLowerCase()}`;
 
@@ -42,14 +42,14 @@ export const StarsFeedbackField = (props) => {
   return <FormikField name={fieldPathCategory} component={renderFormField} />;
 };
 
-StarsFeedbackField.propTypes = {
+CommentTopicsField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   uiProps: PropTypes.object,
 };
 
-StarsFeedbackField.defaultProps = {
-  fieldPath: 'feedback',
+CommentTopicsField.defaultProps = {
+  fieldPath: 'topics',
   category: 'categoryOne',
   uiProps: {},
 };

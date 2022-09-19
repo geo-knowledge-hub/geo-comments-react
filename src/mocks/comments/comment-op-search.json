@@ -1,0 +1,49 @@
+{
+  "hits": {
+    "hits": [
+      {
+        "id": "87d5514f-6f1b-422b-ab39-7c0590279e12",
+        "record_pid": "865z2-ahg25",
+        "user_id": 1,
+        "status": "A",
+        "content": "A comment here",
+        "links": {
+          "actions": {
+            "allow": "https://geo-knowledge-hub-api/api/entity/865z2-ahg25/comments/87d5514f-6f1b-422b-ab39-7c0590279e12/actions/allow",
+            "deny": "https://geo-knowledge-hub-api/api/entity/865z2-ahg25/comments/87d5514f-6f1b-422b-ab39-7c0590279e12/actions/deny"
+          },
+          "self": "https://geo-knowledge-hub-api/api/entity/865z2-ahg25/comments/87d5514f-6f1b-422b-ab39-7c0590279e12"
+        }
+      }
+    ],
+    "total": 1
+  },
+  "aggregations": {
+    "status": {
+      "buckets": [
+        {
+          "key": "A",
+          "doc_count": 1,
+          "label": "A",
+          "is_selected": false
+        }
+      ],
+      "label": "Status"
+    },
+    "record": {
+      "buckets": [
+        {
+          "key": "865z2-ahg25",
+          "doc_count": 1,
+          "label": "865z2-ahg25",
+          "is_selected": false
+        }
+      ],
+      "label": "Record"
+    }
+  },
+  "sortBy": "newest",
+  "links": {
+    "self": "https://geo-knowledge-hub-api/api/entity/865z2-ahg25/comments?page=1&size=25&sort=newest"
+  }
+}

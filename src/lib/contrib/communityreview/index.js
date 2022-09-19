@@ -5,11 +5,3 @@
  * GEO-Comments-React is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
-
-// fields
-export * from './fields';
-
-// elements
-export { CommentText } from './CommentText';
-export { CommentTopics } from './CommentTopics';
-export { CommentList } from './CommentList';

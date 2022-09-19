@@ -6,10 +6,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-// fields
-export * from './fields';
+import React from 'react';
 
-// elements
-export { CommentText } from './CommentText';
-export { CommentTopics } from './CommentTopics';
-export { CommentList } from './CommentList';
+// ToDo: Implement this component
+// import { Rating } from "semantic-ui-react";
+// import { Field, FastField, getIn } from "formik";
+
+export const CommentList = () => {};
