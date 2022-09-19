@@ -1,8 +1,8 @@
 /*
- * This file is part of GEO-Feedback-React.
+ * This file is part of GEO-Comments-React.
  * Copyright (C) 2022 GEO Secretariat.
  *
- * GEO-Feedback-React is free software; you can redistribute it and/or modify it
+ * GEO-Comments-React is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
@@ -11,9 +11,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'semantic-ui-react';
 
-import { StarsFeedbackField } from './fields/StarsFeedbackField';
+import { CommentTopicsField } from './fields';
 
-export const StarsFeedback = (props) => {
+export const CommentTopics = (props) => {
   return (
     <>
       <List selection verticalAlign="middle" size={'big'} relaxed={'very'}>
@@ -21,7 +21,7 @@ export const StarsFeedback = (props) => {
           return (
             <List.Item key={category}>
               <List.Content floated="right">
-                <StarsFeedbackField
+                <CommentTopicsField
                   category={category}
                   fieldPath={props.fieldPath}
                   {...props.starsProperties}
@@ -38,14 +38,14 @@ export const StarsFeedback = (props) => {
   );
 };
 
-StarsFeedback.propTypes = {
+CommentTopics.propTypes = {
   fieldPath: PropTypes.string.isRequired,
   categories: PropTypes.array,
   starsProperties: PropTypes.object,
 };
 
-StarsFeedback.defaultProps = {
-  fieldPath: 'feedback',
+CommentTopics.defaultProps = {
+  fieldPath: 'topics',
   categories: ['Clarity', 'Usefulness', 'Reusability'],
   starsProperties: {
     icon: 'star',

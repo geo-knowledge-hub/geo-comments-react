@@ -1,5 +1,5 @@
 {
-  "name": "geo-feedback-react",
+  "name": "@geo-knowledge-hub/geo-comments-react",
   "version": "0.1.0",
   "main": "dist/cjs/index.js",
   "browser": "dist/cjs/index.js",
@@ -20,7 +20,7 @@
     "postextract_messages": "i18next-conv -l en -s ./src/lib/translations/messages/en/translations.json -t ./src/lib/translations/translations.pot",
     "compile_catalog": "node ./src/lib/translations/scripts/compileCatalog.js",
     "init_catalog": "node ./src/lib/translations/scripts/initCatalog",
-    "test": "react-scripts test",
+    "test": "react-scripts test --silent",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "format": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --write \"src/**/*.js\""
@@ -31,10 +31,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/geo-knowledge-hub/geo-feedback-react.git"
+    "url": "https://github.com/geo-knowledge-hub/geo-comments-react.git"
   },
   "bugs": {
-    "url": "https://github.com/geo-knowledge-hub/geo-feedback-react/issues"
+    "url": "https://github.com/geo-knowledge-hub/geo-comments-react/issues"
   },
   "license": "MIT",
   "eslintConfig": {
@@ -113,6 +113,8 @@
       "enzyme-to-json/serializer"
     ],
     "moduleNameMapper": {
+      "@tests/renders": "<rootDir>/src/setupTests",
+      "@tests/mocks/(.*)/(.*)": "<rootDir>/src/mocks/$1/$2",
       "@translations/i18next": "<rootDir>/src/lib/i18next"
     }
   }

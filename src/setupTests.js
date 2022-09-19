@@ -1,11 +1,9 @@
 /*
- * This file is part of GEO-Feedback-React.
+ * This file is part of GEO-Comments-React.
  * Copyright (C) 2022 GEO Secretariat.
  *
- * GEO-Feedback-React is free software; you can redistribute it and/or modify it
+ * GEO-Comments-React is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
- *
- * Code adapted from: https://github.com/inveniosoftware/react-invenio-deposit/blob/84956cbf2e2bc28cf6a9834ecc5df37c824bd6ff/src/setupTests.js
  */
 
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
@@ -13,3 +11,45 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
+
+import React from 'react';
+import { render } from '@testing-library/react';
+
+import { Formik } from 'formik';
+
+/**
+ * Required libraries
+ */
+
+// Base theme
+import 'semantic-ui-css/semantic.min.css';
+
+/**
+ * @name wrapperFormikProvider
+ *
+ * @description Wrapper for custom formik render.
+ *
+ * This wrapper functions generate a customizable ``Formik`` context provider
+ * to be used with the ``testing-library`` ``render`` function.
+ *
+ * @param {Object} options object for the ``Formik`` context provider.
+ *
+ * @returns function callback to wrap the Rendered component.
+ */
+const wrapperFormikProvider =
+  (options) =>
+  ({ children }) =>
+    <Formik {...options}>{children}</Formik>;
+
+/**
+ * @name customFormikRender
+ * @description Custom render method for the ``testing-library``
+ */
+const customFormikRender = (ui, formikOptions = {}, renderOptions = {}) =>
+  render(ui, {
+    wrapper: wrapperFormikProvider(formikOptions),
+    ...renderOptions,
+  });
+
+export * from '@testing-library/react';
+export { render as render, customFormikRender as renderWithFormikProvider };

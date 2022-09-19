@@ -1,8 +1,8 @@
 /*
- * This file is part of GEO-Feedback-React.
+ * This file is part of GEO-Comments-React.
  * Copyright (C) 2022 GEO Secretariat.
  *
- * GEO-Feedback-React is free software; you can redistribute it and/or modify it
+ * GEO-Comments-React is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
@@ -10,10 +10,10 @@ import * as Yup from 'yup';
 
 export default Yup.object().shape({
   name: Yup.string().required(),
-  feedback: Yup.object().shape({
+  topics: Yup.object().shape({
     clarity: Yup.number().required(),
     usefulness: Yup.number().required(),
     reusability: Yup.number().required(),
   }),
-  comment: Yup.string().min(20).required(),
+  content: Yup.string().min(20).required(),
 });
