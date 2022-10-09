@@ -8,3 +8,5 @@
 
 export * from './resources';
 export * from './components';
+
+export * from './contrib';

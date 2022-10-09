@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import React, { Component } from 'react';
 import { FieldLabel, RichInputField } from 'react-invenio-forms';
 
 /**

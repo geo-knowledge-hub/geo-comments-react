@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
 import { Rating } from 'semantic-ui-react';
@@ -21,7 +20,7 @@ import { Field, FastField, getIn } from 'formik';
  * @param {object} props.* - Any other props passed to the semantic-ui Rating component.
  */
 export const CommentTopicsField = (props) => {
-  const { fieldPath, category, ...uiProps } = props;
+  const { fieldPath, category, optimized, ...uiProps } = props;
   const fieldPathCategory = `${fieldPath}.${category.toLowerCase()}`;
 
   const renderFormField = (formikBag) => {
@@ -38,18 +37,20 @@ export const CommentTopicsField = (props) => {
     );
   };
 
-  const FormikField = props.optimized ? FastField : Field;
+  const FormikField = optimized ? FastField : Field;
   return <FormikField name={fieldPathCategory} component={renderFormField} />;
 };
 
 CommentTopicsField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  uiProps: PropTypes.object,
+  optimized: PropTypes.bool,
 };
 
 CommentTopicsField.defaultProps = {
   fieldPath: 'topics',
   category: 'categoryOne',
-  uiProps: {},
+  optimized: false,
+  icon: 'star',
+  clearable: false,
 };
