@@ -6,6 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
-
-export const App = () => <p>Coming soon</p>;
+export { Feedback } from './Feedback';
+export { FeedbackText } from './FeedbackText';
+export { FeedbackTopics } from './FeedbackTopics';
+export { FeedbackControl } from './FeedbackControl';

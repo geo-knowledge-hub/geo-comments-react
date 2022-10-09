@@ -6,6 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
-
-export const App = () => <p>Coming soon</p>;
+export const EDITOR_IS_LOADING = 'eventEditor/IS_LOADING';
+export const EDITOR_HAS_ERROR = 'eventEditor/HAS_ERROR';
+export const EDITOR_SUCCESS = 'eventEditor/SUCCESS';
+export const EDITOR_SETTING_CONTENT = 'eventEditor/SETTING_CONTENT';

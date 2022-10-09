@@ -55,7 +55,7 @@ export class CommentsApiClient {
    * @param {object} query - Search query
    */
   async search(query = {}) {
-    const operationUrl = urlcat(this.apiUrl, query);
+    const operationUrl = urlcat(this.apiUrl, { ...query, expand: true });
 
     return this.createResponse(() => this.httpClient.get(operationUrl));
   }
@@ -66,7 +66,7 @@ export class CommentsApiClient {
    * @param {string} commentContent - Comment content
    */
   async create(commentContent) {
-    const operationUrl = this.apiUrl;
+    const operationUrl = urlcat(this.apiUrl, { expand: true });
 
     return this.createResponse(() =>
       this.httpClient.post(operationUrl, commentContent)
@@ -81,6 +81,7 @@ export class CommentsApiClient {
   async get(commentId) {
     const operationUrl = urlcat(this.apiUrl, '/:comment_id', {
       comment_id: commentId,
+      expand: true,
     });
 
     return this.createResponse(() => this.httpClient.get(operationUrl));
@@ -95,6 +96,7 @@ export class CommentsApiClient {
   async update(commentId, commentContent) {
     const operationUrl = urlcat(this.apiUrl, '/:comment_id', {
       comment_id: commentId,
+      expand: true,
     });
 
     return this.createResponse(() =>
@@ -110,8 +112,18 @@ export class CommentsApiClient {
   async delete(commentId) {
     const operationUrl = urlcat(this.apiUrl, '/:comment_id', {
       comment_id: commentId,
+      expand: true,
     });
 
     return this.createResponse(() => this.httpClient.delete(operationUrl));
+  }
+
+  /**
+   * Read the feedback metrics from a record.
+   */
+  async metrics() {
+    const operationUrl = urlcat(this.apiUrl, '/metrics');
+
+    return this.createResponse(() => this.httpClient.get(operationUrl));
   }
 }
