@@ -57,6 +57,7 @@ export class AskProviderApp extends Component {
           basic
           fluid
           color={'grey'}
+          animated={'fade'}
         >
           <Icon name={'comments outline'} size={'large'} />
           <b>{i18next.t('Ask the provider')}</b>

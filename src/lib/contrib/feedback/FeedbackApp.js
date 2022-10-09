@@ -55,8 +55,9 @@ export class FeedbackApp extends Component {
           basic
           fluid
           color={'grey'}
+          animated={'fade'}
         >
-          <Icon name={'comments outline'} size={'large'} />
+          <Icon name={'users'} size={'large'} />
           <b>{i18next.t('Learn the community experience with this package')}</b>
         </Button>
 
