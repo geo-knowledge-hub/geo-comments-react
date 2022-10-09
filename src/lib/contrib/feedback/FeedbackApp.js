@@ -17,7 +17,6 @@ import { configureStore } from './store';
 import { FeedbackSpace } from './components';
 import { CommentsApiClient } from '../../resources';
 
-import 'semantic-ui-css/semantic.min.css';
 
 export class FeedbackApp extends Component {
   constructor(props) {
