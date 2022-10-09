@@ -1,0 +1,210 @@
+{
+  "access": {
+    "embargo": {
+      "active": false,
+      "reason": null
+    },
+    "files": "public",
+    "record": "public",
+    "status": "public"
+  },
+  "created": "2022-10-06T23:01:17.953592+00:00",
+  "expanded": {},
+  "files": {
+    "enabled": false,
+    "order": []
+  },
+  "id": "08jqc-z2x70",
+  "is_draft": false,
+  "is_published": true,
+  "links": {
+    "access_links": "https://server/api/packages/08jqc-z2x70/access/links",
+    "doi": "https://doi.org/10.5072/08jqc-z2x70",
+    "draft": "https://server/api/packages/08jqc-z2x70/draft",
+    "files": "https://server/api/packages/08jqc-z2x70/files",
+    "latest": "https://server/api/packages/08jqc-z2x70/versions/latest",
+    "latest_html": "https://server/packages/08jqc-z2x70/latest",
+    "reserve_doi": "https://server/api/packages/08jqc-z2x70/draft/pids/doi",
+    "resources": "https://server/api/packages/08jqc-z2x70/resources",
+    "self": "https://server/api/packages/08jqc-z2x70",
+    "self_doi": "https://server/doi/10.5072/08jqc-z2x70",
+    "self_html": "https://server/packages/08jqc-z2x70",
+    "self_iiif_manifest": "https://server/api/iiif/package:08jqc-z2x70/manifest",
+    "self_iiif_sequence": "https://server/api/iiif/package:08jqc-z2x70/sequence/default",
+    "versions": "https://server/api/packages/08jqc-z2x70/versions"
+  },
+  "metadata": {
+    "creators": [
+      {
+        "person_or_org": {
+          "family_name": "Brown",
+          "given_name": "Troy",
+          "name": "Brown, Troy",
+          "type": "personal"
+        }
+      },
+      {
+        "person_or_org": {
+          "name": "Troy Inc.",
+          "type": "organizational"
+        }
+      }
+    ],
+    "publication_date": "2020-06-01",
+    "resource_type": {
+      "id": "knowledge",
+      "title": {
+        "en": "Knowledge Package"
+      }
+    },
+    "title": "A Romans story"
+  },
+  "parent": {
+    "access": {
+      "links": [],
+      "owned_by": [
+        {
+          "user": 3
+        }
+      ]
+    },
+    "communities": {},
+    "id": "34gas-ed849",
+    "type": "package"
+  },
+  "pids": {
+    "doi": {
+      "client": "datacite",
+      "identifier": "10.5072/08jqc-z2x70",
+      "provider": "datacite"
+    },
+    "oai": {
+      "identifier": "oai:geo-knowledge-hub.org:08jqc-z2x70",
+      "provider": "oai"
+    }
+  },
+  "relationship": {
+    "managed_resources": [
+      {
+        "id": "9tgrb-n4k56"
+      },
+      {
+        "id": "49ste-dvm63"
+      },
+      {
+        "id": "546cn-6eq85"
+      },
+      {
+        "id": "sgaj9-7w298"
+      },
+      {
+        "id": "qqeak-wc321"
+      },
+      {
+        "id": "0bpfm-edr49"
+      },
+      {
+        "id": "z1gdv-82m18"
+      },
+      {
+        "id": "f9xv8-ra018"
+      },
+      {
+        "id": "can18-wrx04"
+      },
+      {
+        "id": "h8c0z-jwq14"
+      },
+      {
+        "id": "nt37g-czb34"
+      },
+      {
+        "id": "sthz6-mdn68"
+      },
+      {
+        "id": "prkfg-fpa16"
+      },
+      {
+        "id": "wjc03-fa255"
+      },
+      {
+        "id": "hxxy0-1hb57"
+      },
+      {
+        "id": "4zazs-bfn63"
+      },
+      {
+        "id": "ccm77-pxj66"
+      },
+      {
+        "id": "az20k-vxp97"
+      },
+      {
+        "id": "rzkxe-n6884"
+      },
+      {
+        "id": "w5gem-d9j76"
+      },
+      {
+        "id": "dfe8m-jgc36"
+      },
+      {
+        "id": "fg7q9-9n693"
+      },
+      {
+        "id": "g4wt6-th812"
+      },
+      {
+        "id": "5yxvc-9mn08"
+      }
+    ],
+    "related_resources": []
+  },
+  "revision_id": 3,
+  "status": "published",
+  "ui": {
+    "access_status": {
+      "description_l10n": "The record is restricted to users with access.",
+      "embargo_date_l10n": null,
+      "icon": "ban",
+      "id": "restricted",
+      "message_class": "negative",
+      "title_l10n": "Restricted"
+    },
+    "created_date_l10n_long": "October 6, 2022",
+    "creators": {
+      "affiliations": [],
+      "creators": [
+        {
+          "person_or_org": {
+            "family_name": "Brown",
+            "given_name": "Troy",
+            "name": "Brown, Troy",
+            "type": "personal"
+          }
+        },
+        {
+          "person_or_org": {
+            "name": "Troy Inc.",
+            "type": "organizational"
+          }
+        }
+      ]
+    },
+    "is_draft": false,
+    "publication_date_l10n_long": "June 1, 2020",
+    "publication_date_l10n_medium": "Jun 1, 2020",
+    "resource_type": {
+      "id": "knowledge",
+      "title_l10n": "Knowledge Package"
+    },
+    "updated_date_l10n_long": "October 6, 2022",
+    "version": "v1"
+  },
+  "updated": "2022-10-06T23:01:18.092842+00:00",
+  "versions": {
+    "index": 1,
+    "is_latest": true,
+    "is_latest_draft": true
+  }
+}

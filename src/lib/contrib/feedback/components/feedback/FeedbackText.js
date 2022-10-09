@@ -7,22 +7,21 @@
  */
 
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
-import { CommentTextField } from './fields';
+import { CommentTextField } from '../../../../components';
 
-export const CommentText = ({ fieldPath, editorConfig }) => (
+export const FeedbackText = ({ fieldPath, editorConfig }) => (
   <CommentTextField fieldPath={fieldPath} editorConfig={editorConfig} />
 );
 
-CommentText.propTypes = {
+FeedbackText.propTypes = {
   fieldPath: PropTypes.string,
   editorConfig: PropTypes.object,
 };
 
-CommentText.defaultProps = {
-  fieldPath: 'comment',
+FeedbackText.defaultProps = {
+  fieldPath: 'content',
   editorConfig: {
     removePlugins: [
       'Image',

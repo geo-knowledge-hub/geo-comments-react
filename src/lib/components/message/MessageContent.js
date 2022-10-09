@@ -7,5 +7,16 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const App = () => <p>Coming soon</p>;
+export const MessageContent = ({ content }) => {
+  return <span dangerouslySetInnerHTML={{ __html: content }} />;
+};
+
+MessageContent.propTypes = {
+  content: PropTypes.string,
+};
+
+MessageContent.defaultProps = {
+  content: '',
+};

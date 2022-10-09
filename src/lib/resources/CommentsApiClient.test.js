@@ -44,7 +44,7 @@ describe('CommentsApiClient tests', () => {
 
     it('should call http.post with proper URL', () => {
       expect(http.post).toHaveBeenCalledWith(
-        `${API_PREFIX}/${API_COMMENT_TYPE}`,
+        `${API_PREFIX}/${API_COMMENT_TYPE}?expand=true`,
         commentContent
       );
     });
@@ -76,7 +76,7 @@ describe('CommentsApiClient tests', () => {
 
     it('should call http.get with proper URL', () => {
       expect(http.get).toHaveBeenCalledWith(
-        `${API_PREFIX}/${API_COMMENT_TYPE}/${commentResponse.id}`
+        `${API_PREFIX}/${API_COMMENT_TYPE}/${commentResponse.id}?expand=true`
       );
     });
 
@@ -106,7 +106,7 @@ describe('CommentsApiClient tests', () => {
 
     it('should call http.get with proper URL', () => {
       expect(http.get).toHaveBeenCalledWith(
-        `${API_PREFIX}/${API_COMMENT_TYPE}`
+        `${API_PREFIX}/${API_COMMENT_TYPE}?expand=true`
       );
     });
 
@@ -137,7 +137,7 @@ describe('CommentsApiClient tests', () => {
 
     it('should call http.put with proper URL', () => {
       expect(http.put).toHaveBeenCalledWith(
-        `${API_PREFIX}/${API_COMMENT_TYPE}/${commentResponse.id}`,
+        `${API_PREFIX}/${API_COMMENT_TYPE}/${commentResponse.id}?expand=true`,
         commentResponse
       );
     });
@@ -170,7 +170,7 @@ describe('CommentsApiClient tests', () => {
 
     it('should call http.delete with proper URL', () => {
       expect(http.delete).toHaveBeenCalledWith(
-        `${API_PREFIX}/${API_COMMENT_TYPE}/${commentResponse.id}`
+        `${API_PREFIX}/${API_COMMENT_TYPE}/${commentResponse.id}?expand=true`
       );
     });
   });
