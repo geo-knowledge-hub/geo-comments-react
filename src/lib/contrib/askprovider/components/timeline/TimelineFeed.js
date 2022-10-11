@@ -9,7 +9,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Container, Divider } from 'semantic-ui-react';
+import { i18next } from '@translations/i18next';
+
+import { Container, Divider, Header, Icon, Segment } from 'semantic-ui-react';
 
 import {
   CommentFeed,
@@ -56,20 +58,35 @@ export class TimelineFeedComponent extends Component {
     const { timeline, loading, error, setPage, size, page, userAvatar } =
       this.props;
 
+    // Extracting the timeline data
+    const timelineData = timeline?.hits?.hits || [];
+
     return (
       <Loader isLoading={loading}>
         <Error error={error}>
           <Container id="requests-timeline" className="ml-0-mobile mr-0-mobile">
-            <CommentFeed>
-              {timeline.hits?.hits.map((comment) => (
-                <CommentControl
-                  key={comment.id}
-                  comment={comment}
-                  openConfirmModal={this.onOpenModal}
-                />
-              ))}
-            </CommentFeed>
-            <Divider fitted />
+            {timelineData.length !== 0 ? (
+              <CommentFeed>
+                {timelineData.map((comment) => (
+                  <CommentControl
+                    key={comment.id}
+                    comment={comment}
+                    openConfirmModal={this.onOpenModal}
+                  />
+                ))}
+              </CommentFeed>
+            ) : (
+              <Segment
+                placeholder
+                size={'large'}
+                className={'comments comments-empty'}
+              >
+                <Header icon>
+                  <Icon name="comments outline" />
+                  {i18next.t('No comments have been made yet. Be the first!')}
+                </Header>
+              </Segment>
+            )}
             <Container textAlign="center" className="mb-5 mt-10">
               <Pagination
                 page={page}
