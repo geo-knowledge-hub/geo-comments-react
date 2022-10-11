@@ -65,7 +65,7 @@ export class TimelineFeedComponent extends Component {
           <Container id="requests-timeline" className="ml-0-mobile mr-0-mobile">
             {timelineData.length !== 0 ? (
               <CommentFeed>
-                {timeline?.hits?.hits.map((comment) => (
+                {timelineData.map((comment) => (
                   <FeedbackControl
                     key={comment.id}
                     comment={comment}

@@ -54,7 +54,7 @@ const generateUpdatedTimelineStateWithDelete = (commentId, currentState) => {
   const currentHits = timelineState.hits.hits;
 
   const indexCommentToDelete = currentHits.findIndex(
-    (comment) => comment.id !== commentId
+    (comment) => comment.id === commentId
   );
 
   if (indexCommentToDelete !== -1) {
