@@ -10,8 +10,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { i18next } from '@translations/i18next';
-
-import { Container, Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import { Container, Header, Icon, Segment } from 'semantic-ui-react';
 
 import {
   CommentFeed,
@@ -76,14 +75,12 @@ export class TimelineFeedComponent extends Component {
                 ))}
               </CommentFeed>
             ) : (
-              <Segment
-                placeholder
-                size={'large'}
-                className={'comments comments-empty'}
-              >
+              <Segment placeholder size={'large'}>
                 <Header icon>
                   <Icon name="comments outline" />
-                  {i18next.t('No comments have been made yet. Be the first!')}
+                  {i18next.t(
+                    'No comments have been made yet. Create the first one now!'
+                  )}
                 </Header>
               </Segment>
             )}

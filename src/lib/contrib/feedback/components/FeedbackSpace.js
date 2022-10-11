@@ -9,6 +9,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { Trans } from 'react-i18next';
+
 import _sum from 'lodash/sum';
 import _groupBy from 'lodash/groupBy';
 
@@ -36,6 +38,14 @@ import { TimelineFeed } from './timeline';
 import { Loader } from '../../../components';
 
 export class FeedbackSpaceComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showLoginRequiredMessage: false,
+    };
+  }
+
   componentDidMount() {
     const { getFeedbackSpaceMetrics } = this.props;
     getFeedbackSpaceMetrics();
@@ -77,8 +87,20 @@ export class FeedbackSpaceComponent extends Component {
     );
   }
 
+  /**
+   * Methods to handle the login required message.
+   */
+  showLoginRequiredMessage() {
+    this.setState({ ...this.state, showLoginRequiredMessage: true });
+  }
+
+  closeLoginRequiredMessage() {
+    this.setState({ ...this.state, showLoginRequiredMessage: false });
+  }
+
   render() {
     const {
+      user,
       record,
       modalOnClose,
       modalIsOpen,
@@ -109,79 +131,143 @@ export class FeedbackSpaceComponent extends Component {
                 <Grid fluid verticalAlign={'middle'}>
                   <Grid.Row>
                     <Grid.Column width={12}>
-                      <p style={{ fontSize: '1.5em' }}>
+                      <p className={'feedback feedback-metrics-title'}>
                         Community feedback for <b>{recordTitle}</b>
                       </p>
                     </Grid.Column>
 
                     <Grid.Column width={4} align={'right'}>
-                      <Loader isLoading={metricsIsLoading}>
-                        {topicMetricsDataOverview && (
-                          <Statistic size={'small'}>
-                            <Statistic.Value>
-                              {recordMetricDataOverview}/5
-                            </Statistic.Value>
-                            <Statistic.Label>
-                              <Popup
-                                trigger={
-                                  <p>
-                                    General Rating <Icon name={'dropdown'} />
-                                  </p>
-                                }
-                                flowing
-                                hoverable
-                              >
+                      <Grid>
+                        <Grid.Row>
+                          <Grid.Column width={16} textAlign={'center'}>
+                            <Loader isLoading={metricsIsLoading}>
+                              {recordMetricDataOverview ? (
+                                <Statistic size={'small'}>
+                                  <Statistic.Value>
+                                    {recordMetricDataOverview}/5
+                                  </Statistic.Value>
+                                  <Statistic.Label>
+                                    <Popup
+                                      trigger={
+                                        <p>
+                                          General Rating{' '}
+                                          <Icon name={'dropdown'} />
+                                        </p>
+                                      }
+                                      flowing
+                                      hoverable
+                                    >
+                                      <Grid
+                                        centered
+                                        divided
+                                        columns={
+                                          topicMetricsDataOverview.length
+                                        }
+                                      >
+                                        {topicMetricsDataOverview.map(
+                                          (topicMetric) => (
+                                            <Grid.Column textAlign="center">
+                                              <Statistic size={'tiny'}>
+                                                <Statistic.Label>
+                                                  {topicMetric.name}
+                                                </Statistic.Label>
+                                                <Statistic.Value>
+                                                  {topicMetric.rating}/5
+                                                </Statistic.Value>
+                                              </Statistic>
+                                            </Grid.Column>
+                                          )
+                                        )}
+                                      </Grid>
+                                    </Popup>
+                                  </Statistic.Label>
+                                </Statistic>
+                              ) : (
                                 <Grid
-                                  centered
-                                  divided
-                                  columns={topicMetricsDataOverview.length}
+                                  fluid
+                                  className={'feedback feedback-metrics-empty'}
                                 >
-                                  {topicMetricsDataOverview.map(
-                                    (topicMetric) => (
-                                      <Grid.Column textAlign="center">
-                                        <Statistic size={'tiny'}>
-                                          <Statistic.Label>
-                                            {topicMetric.name}
-                                          </Statistic.Label>
-                                          <Statistic.Value>
-                                            {topicMetric.rating}/5
-                                          </Statistic.Value>
-                                        </Statistic>
-                                      </Grid.Column>
-                                    )
-                                  )}
+                                  <Grid.Row>
+                                    <Grid.Column
+                                      width={16}
+                                      textAlign={'center'}
+                                    >
+                                      {i18next.t(
+                                        'General metrics not are not available.'
+                                      )}
+                                    </Grid.Column>
+                                  </Grid.Row>
                                 </Grid>
-                              </Popup>
-                            </Statistic.Label>
-                          </Statistic>
-                        )}
-                      </Loader>
+                              )}
+                            </Loader>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
               </Container>
-
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={16} align={'right'}>
-                    <Button
-                      content={i18next.t('Share your feedback')}
-                      size={'tiny'}
-                      color={'green'}
-                      onClick={() => {
-                        feedbackCreateModal();
-                      }}
-                    />
+                  <Grid.Column width={12}></Grid.Column>
+                  <Grid.Column width={4}>
+                    <Grid fluid>
+                      <Grid.Row>
+                        <Grid.Column width={16} textAlign={'center'}>
+                          <Button
+                            content={i18next.t('Share your feedback')}
+                            size={'tiny'}
+                            color={'green'}
+                            onClick={() => {
+                              if (user.userIsAuthenticated) {
+                                feedbackCreateModal();
+                              } else {
+                                this.showLoginRequiredMessage();
+                              }
+                            }}
+                          />
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
             </Segment>
-
             <Segment basic>
               <TimelineFeed />
             </Segment>
 
             <FeedbackModal />
+
+            <Modal
+              open={this.state.showLoginRequiredMessage}
+              onClose={() => {
+                this.closeLoginRequiredMessage();
+              }}
+              closeIcon
+              closeOnEscape={true}
+              closeOnDimmerClick={true}
+            >
+              <Modal.Header>{i18next.t('Login required')}</Modal.Header>
+              <Modal.Content>
+                <Trans>
+                  To create a new feedback in this record, you should be logged
+                  in. <a href={'/signup'}>Click here</a> to register now or{' '}
+                  <a href={'/login'}>Login</a>
+                </Trans>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  content="Ok"
+                  labelPosition="right"
+                  icon="checkmark"
+                  onClick={() => {
+                    this.closeLoginRequiredMessage();
+                  }}
+                  positive
+                />
+              </Modal.Actions>
+            </Modal>
           </Container>
         </Modal.Content>
       </Modal>
@@ -196,6 +282,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
+  user: state.space.user,
   record: state.modal.record,
   metricsData: state.modal.metricsData,
   metricsIsLoading: state.modal.metricsIsLoading,
