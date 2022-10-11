@@ -9,7 +9,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Container } from 'semantic-ui-react';
+import { i18next } from '@translations/i18next';
+import { Container, Header, Icon, Segment } from 'semantic-ui-react';
 
 import {
   getTimelineWithRefresh,
@@ -55,19 +56,33 @@ export class TimelineFeedComponent extends Component {
     const { timeline, loading, error, setPage, size, page, userAvatar } =
       this.props;
 
+    // Extracting the timeline data
+    const timelineData = timeline?.hits?.hits || [];
+
     return (
       <Loader isLoading={loading}>
         <Error error={error}>
           <Container id="requests-timeline" className="ml-0-mobile mr-0-mobile">
-            <CommentFeed>
-              {timeline?.hits?.hits.map((comment) => (
-                <FeedbackControl
-                  key={comment.id}
-                  comment={comment}
-                  openConfirmModal={this.onOpenModal}
-                />
-              ))}
-            </CommentFeed>
+            {timelineData.length !== 0 ? (
+              <CommentFeed>
+                {timeline?.hits?.hits.map((comment) => (
+                  <FeedbackControl
+                    key={comment.id}
+                    comment={comment}
+                    openConfirmModal={this.onOpenModal}
+                  />
+                ))}
+              </CommentFeed>
+            ) : (
+              <Segment placeholder size={'large'}>
+                <Header icon>
+                  <Icon name="comments outline" />
+                  {i18next.t(
+                    'No feedback have been made yet. Create the first one now!'
+                  )}
+                </Header>
+              </Segment>
+            )}
             <Container textAlign="center" className="mb-15 mt-15">
               <Pagination
                 page={page}

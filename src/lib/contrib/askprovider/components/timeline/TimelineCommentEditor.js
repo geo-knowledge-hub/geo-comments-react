@@ -80,7 +80,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  isLoading: state.timelineEditor.isLoading, // ToDo: Change this name!
+  isLoading: state.timelineEditor.isLoading,
   error: state.timelineEditor.error,
   commentContent: state.timelineEditor.commentContent,
 });

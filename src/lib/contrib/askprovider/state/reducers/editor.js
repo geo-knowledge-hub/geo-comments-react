@@ -13,13 +13,17 @@ import {
   EDITOR_SETTING_CONTENT,
 } from '../actions';
 
-const initialState = {
+export const initialTimelineEditorState = {
   error: null,
   isLoading: false,
   commentContent: '',
+  user: null,
 };
 
-export const commentEditorReducer = (state = initialState, action) => {
+export const commentEditorReducer = (
+  state = initialTimelineEditorState,
+  action
+) => {
   switch (action.type) {
     case EDITOR_SETTING_CONTENT:
       return { ...state, commentContent: action.payload };
