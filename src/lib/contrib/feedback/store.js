@@ -19,7 +19,7 @@ const composeEnhancers = composeWithDevTools({
 });
 
 export function configureStore(config) {
-  const { record } = config;
+  const { record, user } = config;
   const { size } = config.defaultQueryParams;
 
   return createStore(
@@ -28,6 +28,7 @@ export function configureStore(config) {
     {
       timeline: { ...initialTimelineState, size },
       modal: { record },
+      space: { user },
     },
     composeEnhancers(applyMiddleware(thunk.withExtraArgument(config)))
   );

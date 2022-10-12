@@ -13,12 +13,14 @@ import thunk from 'redux-thunk';
 
 import { default as createReducers } from './state/reducers';
 import { initialTimelineState } from '../../state/reducers';
+import { initialTimelineEditorState } from './state/reducers';
 
 const composeEnhancers = composeWithDevTools({
   name: 'Ask Provider',
 });
 
 export function configureStore(config) {
+  const { user } = config;
   const { size } = config.defaultQueryParams;
 
   return createStore(
@@ -26,6 +28,7 @@ export function configureStore(config) {
     // config object will be available in the actions,
     {
       timeline: { ...initialTimelineState, size },
+      timelineEditor: { ...initialTimelineEditorState, user },
     },
     composeEnhancers(applyMiddleware(thunk.withExtraArgument(config)))
   );

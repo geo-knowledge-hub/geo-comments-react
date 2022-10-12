@@ -17,3 +17,5 @@ export default function createReducers() {
     timelineEditor: commentEditorReducer,
   });
 }
+
+export * from './editor';

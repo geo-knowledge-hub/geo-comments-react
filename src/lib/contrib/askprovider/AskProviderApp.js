@@ -25,7 +25,8 @@ export class AskProviderApp extends Component {
     super(props);
 
     // Extracting parameters
-    const { commentsApi, record, defaultQueryParams } = this.props;
+    const { commentsApi, record, defaultQueryParams, userIsAuthenticated } =
+      this.props;
 
     // Creating Comments API client
     const commentsApiClient = new CommentsApiClient(
@@ -36,6 +37,7 @@ export class AskProviderApp extends Component {
     const appConfig = {
       commentsApi: commentsApi || commentsApiClient,
       record,
+      user: { userIsAuthenticated },
       refreshIntervalMs: 5000,
       defaultQueryParams,
     };

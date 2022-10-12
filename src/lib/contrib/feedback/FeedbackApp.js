@@ -17,13 +17,13 @@ import { configureStore } from './store';
 import { FeedbackSpace } from './components';
 import { CommentsApiClient } from '../../resources';
 
-
 export class FeedbackApp extends Component {
   constructor(props) {
     super(props);
 
     // Extracting parameters
-    const { commentsApi, record, defaultQueryParams } = this.props;
+    const { commentsApi, record, defaultQueryParams, userIsAuthenticated } =
+      this.props;
 
     // Creating Comments API client
     const commentsApiClient = new CommentsApiClient(
@@ -34,7 +34,8 @@ export class FeedbackApp extends Component {
     const appConfig = {
       commentsApi: commentsApi || commentsApiClient,
       record,
-      refreshIntervalMs: 100000,
+      user: { userIsAuthenticated },
+      refreshIntervalMs: 5000,
       defaultQueryParams,
     };
 
