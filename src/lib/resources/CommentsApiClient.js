@@ -119,10 +119,19 @@ export class CommentsApiClient {
   }
 
   /**
-   * Read the feedback metrics from a record.
+   * Read the feedback metrics from a record (Available only for the Feedback space).
    */
   async metrics() {
     const operationUrl = urlcat(this.apiUrl, '/metrics');
+
+    return this.createResponse(() => this.httpClient.get(operationUrl));
+  }
+
+  /**
+   * Validate if user can create a new feedback (Available only for the Feedback space).
+   */
+  async validateUserState() {
+    const operationUrl = urlcat(this.apiUrl, '/actions/validate-user');
 
     return this.createResponse(() => this.httpClient.get(operationUrl));
   }

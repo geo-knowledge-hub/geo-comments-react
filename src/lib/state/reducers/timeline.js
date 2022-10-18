@@ -12,6 +12,8 @@ import {
   TIMELINE_SUCCESS,
   TIMELINE_HAS_ERROR,
   TIMELINE_CHANGE_PAGE,
+  TIMELINE_SIDE_EFFECT_START,
+  TIMELINE_SIDE_EFFECT_END,
 } from '../actions';
 
 export const initialTimelineState = {
@@ -21,6 +23,7 @@ export const initialTimelineState = {
   error: null,
   size: 15,
   page: 1,
+  needSideEffectUpdate: false,
 };
 
 export const timelineReducer = (state = initialTimelineState, action) => {
@@ -36,6 +39,7 @@ export const timelineReducer = (state = initialTimelineState, action) => {
         loading: false,
         data: action.payload,
         error: null,
+        needUpdate: true,
       };
     case TIMELINE_HAS_ERROR:
       return {
@@ -49,7 +53,16 @@ export const timelineReducer = (state = initialTimelineState, action) => {
         ...state,
         page: action.payload,
       };
-
+    case TIMELINE_SIDE_EFFECT_START:
+      return {
+        ...state,
+        needSideEffectUpdate: true,
+      };
+    case TIMELINE_SIDE_EFFECT_END:
+      return {
+        ...state,
+        needSideEffectUpdate: false,
+      };
     default:
       return state;
   }

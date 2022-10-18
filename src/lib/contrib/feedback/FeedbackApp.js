@@ -35,7 +35,7 @@ export class FeedbackApp extends Component {
       commentsApi: commentsApi || commentsApiClient,
       record,
       user: { userIsAuthenticated },
-      refreshIntervalMs: 5000,
+      refreshIntervalMs: 60000,
       defaultQueryParams,
     };
 

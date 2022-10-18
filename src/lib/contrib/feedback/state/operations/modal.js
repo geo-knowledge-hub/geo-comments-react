@@ -26,6 +26,7 @@ import {
 } from '../../../../state/operations/timeline';
 
 import { serializeErrorObject } from '../../../../utils';
+import { startSideEffectUpdate } from '../../../../state/operations/effect';
 import { generateUpdatedTimelineStateWithUpdate } from '../../../../state/operations/message';
 
 const INITIAL_MODAL_FORM_STATE = {
@@ -89,6 +90,7 @@ export const feedbackModalCreateFeedback = (content) => {
         ),
       });
 
+      dispatch(startSideEffectUpdate());
       dispatch(setTimelineInterval());
     } catch (error) {
       dispatch({
@@ -125,6 +127,7 @@ export const feedbackModalUpdateFeedback = (content) => {
       ),
     });
 
+    dispatch(startSideEffectUpdate());
     dispatch(setTimelineInterval());
 
     return response.data;

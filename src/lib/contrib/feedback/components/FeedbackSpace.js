@@ -31,24 +31,34 @@ import {
   feedbackModalCreateFeedback,
   feedbackModalOpen,
 } from '../state/operations/modal';
+
 import { getFeedbackSpaceMetrics } from '../state/operations/metrics';
+import { getFeedbackSpaceUserStatus } from '../state/operations/user';
 
 import { FeedbackModal } from './modal';
 import { TimelineFeed } from './timeline';
 import { Loader } from '../../../components';
+import { stopSideEffectUpdate } from '../../../state/operations/effect';
 
 export class FeedbackSpaceComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showLoginRequiredMessage: false,
+      modalTitle: '',
+      modalMessage: '',
+      showModalMessage: false,
     };
   }
 
   componentDidMount() {
-    const { getFeedbackSpaceMetrics } = this.props;
+    this.updateUserAndMetrics();
+  }
+
+  updateUserAndMetrics() {
+    const { getFeedbackSpaceMetrics, getFeedbackSpaceUserStatus } = this.props;
     getFeedbackSpaceMetrics();
+    getFeedbackSpaceUserStatus();
   }
 
   /**
@@ -90,12 +100,22 @@ export class FeedbackSpaceComponent extends Component {
   /**
    * Methods to handle the login required message.
    */
-  showLoginRequiredMessage() {
-    this.setState({ ...this.state, showLoginRequiredMessage: true });
+  showModalMessage(modalTitle, modalMessage) {
+    this.setState({
+      ...this.state,
+      modalTitle,
+      modalMessage,
+      showModalMessage: true,
+    });
   }
 
-  closeLoginRequiredMessage() {
-    this.setState({ ...this.state, showLoginRequiredMessage: false });
+  closeModalMessage() {
+    this.setState({
+      ...this.state,
+      modalTitle: '',
+      modalMessage: '',
+      showModalMessage: false,
+    });
   }
 
   render() {
@@ -107,6 +127,10 @@ export class FeedbackSpaceComponent extends Component {
       metricsIsLoading,
       metricsData,
       feedbackCreateModal,
+      userStateData,
+      userStateDataIsLoading,
+      needSideEffectUpdate,
+      stopSideEffectUpdate,
     } = this.props;
 
     // Properties
@@ -120,6 +144,15 @@ export class FeedbackSpaceComponent extends Component {
     const recordMetricDataOverview = this.generateRecordOverviewMetric(
       topicMetricsDataOverview
     );
+
+    if (needSideEffectUpdate) {
+      // Side effecting some components
+      setTimeout(() => {
+        this.updateUserAndMetrics();
+      }, 1000);
+
+      stopSideEffectUpdate();
+    }
 
     return (
       <Modal onClose={modalOnClose} open={modalIsOpen} size={'large'} closeIcon>
@@ -140,7 +173,11 @@ export class FeedbackSpaceComponent extends Component {
                       <Grid>
                         <Grid.Row>
                           <Grid.Column width={16} textAlign={'center'}>
-                            <Loader isLoading={metricsIsLoading}>
+                            <Loader
+                              isLoading={
+                                metricsData === undefined && metricsIsLoading
+                              }
+                            >
                               {recordMetricDataOverview ? (
                                 <Statistic size={'small'}>
                                   <Statistic.Value>
@@ -193,7 +230,7 @@ export class FeedbackSpaceComponent extends Component {
                                       textAlign={'center'}
                                     >
                                       {i18next.t(
-                                        'General metrics not are not available.'
+                                        'There is not feedback metrics available yet.'
                                       )}
                                     </Grid.Column>
                                   </Grid.Row>
@@ -214,18 +251,45 @@ export class FeedbackSpaceComponent extends Component {
                     <Grid fluid>
                       <Grid.Row>
                         <Grid.Column width={16} textAlign={'center'}>
-                          <Button
-                            content={i18next.t('Share your feedback')}
-                            size={'tiny'}
-                            color={'green'}
-                            onClick={() => {
-                              if (user.userIsAuthenticated) {
-                                feedbackCreateModal();
-                              } else {
-                                this.showLoginRequiredMessage();
-                              }
-                            }}
-                          />
+                          <Loader
+                            isLoading={
+                              userStateData === undefined &&
+                              userStateDataIsLoading
+                            }
+                          >
+                            <Button
+                              content={i18next.t('Share your feedback')}
+                              size={'tiny'}
+                              color={'green'}
+                              onClick={() => {
+                                if (user.userIsAuthenticated) {
+                                  if (!userStateData.is_valid_to_create) {
+                                    this.showModalMessage(
+                                      i18next.t('Feedback validation'),
+                                      i18next.t(
+                                        'You already have feedback. Please, you can edit your already defined ' +
+                                          'feedback providing more details, or' +
+                                          ' delete it to create a new one.'
+                                      )
+                                    );
+                                  } else {
+                                    feedbackCreateModal();
+                                  }
+                                } else {
+                                  this.showModalMessage(
+                                    i18next.t('Login required'),
+                                    <Trans>
+                                      To create a new feedback in this record,
+                                      you should be logged in.{' '}
+                                      <a href={'/signup'}>Click here</a> to
+                                      register now or{' '}
+                                      <a href={'/login'}>Login</a>
+                                    </Trans>
+                                  );
+                                }
+                              }}
+                            />
+                          </Loader>
                         </Grid.Column>
                       </Grid.Row>
                     </Grid>
@@ -240,29 +304,23 @@ export class FeedbackSpaceComponent extends Component {
             <FeedbackModal />
 
             <Modal
-              open={this.state.showLoginRequiredMessage}
+              open={this.state.showModalMessage}
               onClose={() => {
-                this.closeLoginRequiredMessage();
+                this.closeModalMessage();
               }}
               closeIcon
               closeOnEscape={true}
               closeOnDimmerClick={true}
             >
-              <Modal.Header>{i18next.t('Login required')}</Modal.Header>
-              <Modal.Content>
-                <Trans>
-                  To create a new feedback in this record, you should be logged
-                  in. <a href={'/signup'}>Click here</a> to register now or{' '}
-                  <a href={'/login'}>Login</a>
-                </Trans>
-              </Modal.Content>
+              <Modal.Header>{this.state.modalTitle}</Modal.Header>
+              <Modal.Content>{this.state.modalMessage}</Modal.Content>
               <Modal.Actions>
                 <Button
                   content="Ok"
                   labelPosition="right"
                   icon="checkmark"
                   onClick={() => {
-                    this.closeLoginRequiredMessage();
+                    this.closeModalMessage();
                   }}
                   positive
                 />
@@ -276,9 +334,11 @@ export class FeedbackSpaceComponent extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  getFeedbackSpaceUserStatus: () => dispatch(getFeedbackSpaceUserStatus()),
   getFeedbackSpaceMetrics: () => dispatch(getFeedbackSpaceMetrics()),
   feedbackCreateModal: () =>
     dispatch(feedbackModalOpen(feedbackModalCreateFeedback)),
+  stopSideEffectUpdate: () => dispatch(stopSideEffectUpdate()),
 });
 
 const mapStateToProps = (state) => ({
@@ -286,6 +346,9 @@ const mapStateToProps = (state) => ({
   record: state.modal.record,
   metricsData: state.modal.metricsData,
   metricsIsLoading: state.modal.metricsIsLoading,
+  userStateData: state.modal.userStateData,
+  userStateDataIsLoading: state.modal.userStateDataIsLoading,
+  needSideEffectUpdate: state.timeline.needSideEffectUpdate,
 });
 
 export const FeedbackSpace = connect(

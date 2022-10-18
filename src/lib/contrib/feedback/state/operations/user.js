@@ -7,28 +7,30 @@
  */
 
 import {
-  FEEDBACK_MODAL_METRICS_HAS_ERROR,
-  FEEDBACK_MODAL_METRICS_IS_LOADING,
-  FEEDBACK_MODAL_METRICS_SUCCESS,
+  FEEDBACK_MODAL_USER_STATE_IS_LOADING,
+  FEEDBACK_MODAL_USER_STATE_SUCCESS,
+  FEEDBACK_MODAL_USER_STATE_ERROR,
 } from '../actions';
 
-export const getFeedbackSpaceMetrics = () => {
+export const getFeedbackSpaceUserStatus = () => {
   return async (dispatch, getState, config) => {
     dispatch({
-      type: FEEDBACK_MODAL_METRICS_IS_LOADING,
+      type: FEEDBACK_MODAL_USER_STATE_IS_LOADING,
     });
 
     try {
-      const response = await config.commentsApi.metrics();
+      const response = await config.commentsApi.validateUserState();
 
       dispatch({
-        type: FEEDBACK_MODAL_METRICS_SUCCESS,
+        type: FEEDBACK_MODAL_USER_STATE_SUCCESS,
         payload: response.data,
       });
     } catch (error) {
       dispatch({
-        type: FEEDBACK_MODAL_METRICS_HAS_ERROR,
-        payload: error,
+        type: FEEDBACK_MODAL_USER_STATE_ERROR,
+        payload: {
+          is_valid_to_create: false,
+        },
       });
     }
   };
