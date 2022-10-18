@@ -11,6 +11,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import { TIMELINE_IS_REFRESHING, TIMELINE_SUCCESS } from '../actions';
 
 import { setTimelineInterval, clearTimelineInterval } from './timeline';
+import { startSideEffectUpdate } from './effect';
 
 export const deleteComment = ({ comment }) => {
   return async (dispatch, getState, config) => {
@@ -27,6 +28,7 @@ export const deleteComment = ({ comment }) => {
       payload: generateUpdatedTimelineStateWithDelete(comment.id, getState),
     });
 
+    dispatch(startSideEffectUpdate());
     dispatch(setTimelineInterval());
 
     return response.data;

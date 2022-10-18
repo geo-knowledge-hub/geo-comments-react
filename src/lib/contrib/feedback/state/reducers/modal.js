@@ -14,6 +14,9 @@ import {
   // Metrics
   FEEDBACK_MODAL_METRICS_IS_LOADING,
   FEEDBACK_MODAL_METRICS_SUCCESS,
+  FEEDBACK_MODAL_USER_STATE_ERROR,
+  FEEDBACK_MODAL_USER_STATE_IS_LOADING,
+  FEEDBACK_MODAL_USER_STATE_SUCCESS,
 } from '../actions';
 
 import { feedbackModalCreateFeedback } from '../operations/modal';
@@ -28,6 +31,8 @@ const initialState = {
   formModalData: {},
   formModalIsOpen: false,
   formModalOperation: feedbackModalCreateFeedback,
+  userStateData: {},
+  userStateDataIsLoading: false,
 };
 
 export const feedbackModalReducer = (state = initialState, action) => {
@@ -51,6 +56,17 @@ export const feedbackModalReducer = (state = initialState, action) => {
       return { ...state, metricsIsLoading: true };
     case FEEDBACK_MODAL_METRICS_SUCCESS:
       return { ...state, metricsData: action.payload, metricsIsLoading: false };
+
+    // Users
+    case FEEDBACK_MODAL_USER_STATE_IS_LOADING:
+      return { ...state, userStateDataIsLoading: true };
+    case FEEDBACK_MODAL_USER_STATE_SUCCESS:
+    case FEEDBACK_MODAL_USER_STATE_ERROR:
+      return {
+        ...state,
+        userStateData: action.payload,
+        userStateDataIsLoading: false,
+      };
 
     default:
       return state;
