@@ -57,8 +57,8 @@ export class Comment extends Component {
     const canDelete = comment?.permissions?.can_delete;
 
     // User profile
-    const user = comment.expanded.user;
-    const userName = user.profile.full_name || user.username;
+    const user = comment?.expanded?.user || {};
+    const userName = user?.profile?.full_name || user.username;
 
     return (
       <CommentFeed.Item>
