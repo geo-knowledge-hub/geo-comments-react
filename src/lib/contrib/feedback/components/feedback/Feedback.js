@@ -37,7 +37,7 @@ export class Feedback extends Component {
     return (
       <CommentFeed.Item>
         <CommentFeed.Content>
-          <CommentFeed.Avatar src={user.links.avatar} as={Image} circular />
+          <CommentFeed.Avatar src={user?.links?.avatar} as={Image} circular />
           <CommentFeed.ContentBody>
             <Feed.Content>
               {(canDelete || canUpdate) && (
