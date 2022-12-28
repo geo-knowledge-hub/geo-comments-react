@@ -28,7 +28,7 @@ export class FeedbackApp extends Component {
     // Creating Comments API client
     const commentsApiClient = new CommentsApiClient(
       record.links.self,
-      'feedbacks'
+      'feedback'
     );
 
     const appConfig = {
