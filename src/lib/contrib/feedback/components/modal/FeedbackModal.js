@@ -96,8 +96,8 @@ export class FeedbackModalComponent extends Component {
           >
             {({ values, touched, errors, handleSubmit, isSubmitting }) => (
               <form onSubmit={handleSubmit}>
-                <Grid columns={2} divided padded>
-                  <Grid.Column width={5}>
+                <Grid columns={2} divided padded stackable>
+                  <Grid.Column computer={5} tablet={16} mobile={16}>
                     <Container style={{ marginBottom: '2rem' }}>
                       <Label circular color={'blue'} key={'blue'}>
                         1
@@ -117,7 +117,7 @@ export class FeedbackModalComponent extends Component {
                       </Grid>
                     )}
                   </Grid.Column>
-                  <Grid.Column centered width={11}>
+                  <Grid.Column centered computer={11} tablet={16} mobile={16}>
                     <Container style={{ marginBottom: '2rem' }}>
                       <Label circular color={'blue'} key={'blue'}>
                         2

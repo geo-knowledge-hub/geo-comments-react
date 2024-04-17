@@ -23,6 +23,8 @@ import {
   Popup,
   Icon,
   Container,
+  List,
+  Header,
 } from 'semantic-ui-react';
 
 import { i18next } from '@translations/i18next';
@@ -161,141 +163,237 @@ export class FeedbackSpaceComponent extends Component {
           <Container>
             <Segment basic>
               <Container>
-                <Grid fluid verticalAlign={'middle'}>
+                <Grid stackable>
                   <Grid.Row>
-                    <Grid.Column width={12}>
+                    <Grid.Column computer={12} mobile={16} tablet={16}>
                       <p className={'feedback feedback-metrics-title'}>
                         Community feedback for <b>{recordTitle}</b>
                       </p>
                     </Grid.Column>
 
-                    <Grid.Column width={4} align={'right'}>
-                      <Grid>
-                        <Grid.Row>
-                          <Grid.Column width={16} textAlign={'center'}>
-                            <Loader
-                              isLoading={
-                                metricsData === undefined && metricsIsLoading
-                              }
-                            >
-                              {recordMetricDataOverview ? (
-                                <Statistic size={'small'}>
-                                  <Statistic.Value>
-                                    {recordMetricDataOverview}/5
-                                  </Statistic.Value>
-                                  <Statistic.Label>
-                                    <Popup
-                                      trigger={
-                                        <p>
-                                          General Rating{' '}
-                                          <Icon name={'dropdown'} />
-                                        </p>
-                                      }
-                                      flowing
-                                      hoverable
-                                    >
-                                      <Grid
-                                        centered
-                                        divided
-                                        columns={
-                                          topicMetricsDataOverview.length
-                                        }
-                                      >
-                                        {topicMetricsDataOverview.map(
-                                          (topicMetric) => (
-                                            <Grid.Column textAlign="center">
-                                              <Statistic size={'tiny'}>
-                                                <Statistic.Label>
-                                                  {topicMetric.name}
-                                                </Statistic.Label>
-                                                <Statistic.Value>
-                                                  {topicMetric.rating}/5
-                                                </Statistic.Value>
-                                              </Statistic>
-                                            </Grid.Column>
-                                          )
-                                        )}
-                                      </Grid>
-                                    </Popup>
-                                  </Statistic.Label>
-                                </Statistic>
-                              ) : (
+                    <Grid.Column
+                      width={4}
+                      textAlign={'right'}
+                      only={'computer'}
+                    >
+                      <Loader
+                        isLoading={
+                          metricsData === undefined && metricsIsLoading
+                        }
+                      >
+                        {recordMetricDataOverview ? (
+                          <Statistic size={'small'}>
+                            <Statistic.Value>
+                              {recordMetricDataOverview}/5
+                            </Statistic.Value>
+                            <Statistic.Label>
+                              <Popup
+                                trigger={
+                                  <p>
+                                    General Rating <Icon name={'dropdown'} />
+                                  </p>
+                                }
+                                flowing
+                                hoverable
+                              >
                                 <Grid
-                                  fluid
-                                  className={'feedback feedback-metrics-empty'}
+                                  centered
+                                  divided
+                                  columns={topicMetricsDataOverview.length}
                                 >
-                                  <Grid.Row>
-                                    <Grid.Column
-                                      width={16}
-                                      textAlign={'center'}
-                                    >
-                                      {i18next.t(
-                                        'There is not feedback metrics available yet.'
-                                      )}
-                                    </Grid.Column>
-                                  </Grid.Row>
+                                  {topicMetricsDataOverview.map(
+                                    (topicMetric) => (
+                                      <Grid.Column textAlign="center">
+                                        <Statistic size={'tiny'}>
+                                          <Statistic.Label>
+                                            {topicMetric.name}
+                                          </Statistic.Label>
+                                          <Statistic.Value>
+                                            {topicMetric.rating}/5
+                                          </Statistic.Value>
+                                        </Statistic>
+                                      </Grid.Column>
+                                    )
+                                  )}
                                 </Grid>
-                              )}
-                            </Loader>
-                          </Grid.Column>
-                        </Grid.Row>
-                      </Grid>
+                              </Popup>
+                            </Statistic.Label>
+                          </Statistic>
+                        ) : (
+                          <Grid
+                            fluid
+                            padded
+                            className={'feedback feedback-metrics-empty'}
+                          >
+                            <Grid.Row>
+                              <Grid.Column width={16} textAlign={'center'}>
+                                {i18next.t(
+                                  'There is not feedback metrics available yet.'
+                                )}
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
+                        )}
+                      </Loader>
+                    </Grid.Column>
+
+                    <Grid.Column
+                      width={16}
+                      textAlign={'left'}
+                      only={'mobile tablet'}
+                      style={{ padding: '20px' }}
+                    >
+                      <Loader
+                        isLoading={
+                          metricsData === undefined && metricsIsLoading
+                        }
+                      >
+                        {recordMetricDataOverview ? (
+                          <Grid>
+                            <Grid.Row>
+                              <Grid.Column width={16}>
+                                <Header as={'h3'}>General Rating</Header>
+                              </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                              <Grid.Column width={16}>
+                                <List
+                                  selection
+                                  verticalAlign={'middle'}
+                                  size={'big'}
+                                >
+                                  {topicMetricsDataOverview.map(
+                                    (topic, index) => {
+                                      const topicValue = Math.round(
+                                        topic.rating
+                                      );
+                                      return (
+                                        <List.Item>
+                                          <List.Content floated={'right'}>
+                                            <List.Header>
+                                              <p>{topicValue}/5</p>
+                                            </List.Header>
+                                          </List.Content>
+                                          <List.Content
+                                            style={{
+                                              textTransform: 'capitalize',
+                                            }}
+                                          >
+                                            <List.Header>
+                                              <p>{topic.name}</p>
+                                            </List.Header>
+                                          </List.Content>
+                                        </List.Item>
+                                      );
+                                    }
+                                  )}
+                                </List>
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
+                        ) : (
+                          <Grid
+                            fluid
+                            padded
+                            className={'feedback feedback-metrics-empty'}
+                          >
+                            <Grid.Row>
+                              <Grid.Column width={16} textAlign={'center'}>
+                                {i18next.t(
+                                  'There is not feedback metrics available yet.'
+                                )}
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
+                        )}
+                      </Loader>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row only={'computer'}>
+                    <Grid.Column textAlign={'right'}>
+                      <Loader
+                        isLoading={
+                          userStateData === undefined && userStateDataIsLoading
+                        }
+                      >
+                        <Button
+                          content={i18next.t('Share your feedback')}
+                          size={'tiny'}
+                          color={'green'}
+                          onClick={() => {
+                            if (user.userIsAuthenticated) {
+                              if (!userStateData.is_valid_to_create) {
+                                this.showModalMessage(
+                                  i18next.t('Feedback validation'),
+                                  i18next.t(
+                                    'You already have feedback. Please, you can edit your already defined ' +
+                                      'feedback providing more details, or' +
+                                      ' delete it to create a new one.'
+                                  )
+                                );
+                              } else {
+                                feedbackCreateModal();
+                              }
+                            } else {
+                              this.showModalMessage(
+                                i18next.t('Login required'),
+                                <Trans>
+                                  To create a new feedback in this record, you
+                                  should be logged in.{' '}
+                                  <a href={'/signup'}>Click here</a> to register
+                                  now or <a href={'/login'}>Login</a>
+                                </Trans>
+                              );
+                            }
+                          }}
+                        />
+                      </Loader>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row only={'tablet mobile'}>
+                    <Grid.Column>
+                      <Loader
+                        isLoading={
+                          userStateData === undefined && userStateDataIsLoading
+                        }
+                      >
+                        <Button
+                          content={i18next.t('Share your feedback')}
+                          fluid
+                          size={'tiny'}
+                          color={'green'}
+                          onClick={() => {
+                            if (user.userIsAuthenticated) {
+                              if (!userStateData.is_valid_to_create) {
+                                this.showModalMessage(
+                                  i18next.t('Feedback validation'),
+                                  i18next.t(
+                                    'You already have feedback. Please, you can edit your already defined ' +
+                                      'feedback providing more details, or' +
+                                      ' delete it to create a new one.'
+                                  )
+                                );
+                              } else {
+                                feedbackCreateModal();
+                              }
+                            } else {
+                              this.showModalMessage(
+                                i18next.t('Login required'),
+                                <Trans>
+                                  To create a new feedback in this record, you
+                                  should be logged in.{' '}
+                                  <a href={'/signup'}>Click here</a> to register
+                                  now or <a href={'/login'}>Login</a>
+                                </Trans>
+                              );
+                            }
+                          }}
+                        />
+                      </Loader>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
               </Container>
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column width={12}></Grid.Column>
-                  <Grid.Column width={4}>
-                    <Grid fluid>
-                      <Grid.Row>
-                        <Grid.Column width={16} textAlign={'center'}>
-                          <Loader
-                            isLoading={
-                              userStateData === undefined &&
-                              userStateDataIsLoading
-                            }
-                          >
-                            <Button
-                              content={i18next.t('Share your feedback')}
-                              size={'tiny'}
-                              color={'green'}
-                              onClick={() => {
-                                if (user.userIsAuthenticated) {
-                                  if (!userStateData.is_valid_to_create) {
-                                    this.showModalMessage(
-                                      i18next.t('Feedback validation'),
-                                      i18next.t(
-                                        'You already have feedback. Please, you can edit your already defined ' +
-                                          'feedback providing more details, or' +
-                                          ' delete it to create a new one.'
-                                      )
-                                    );
-                                  } else {
-                                    feedbackCreateModal();
-                                  }
-                                } else {
-                                  this.showModalMessage(
-                                    i18next.t('Login required'),
-                                    <Trans>
-                                      To create a new feedback in this record,
-                                      you should be logged in.{' '}
-                                      <a href={'/signup'}>Click here</a> to
-                                      register now or{' '}
-                                      <a href={'/login'}>Login</a>
-                                    </Trans>
-                                  );
-                                }
-                              }}
-                            />
-                          </Loader>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
             </Segment>
             <Segment basic>
               <TimelineFeed />
