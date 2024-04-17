@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 
 import { Image } from 'react-invenio-forms';
-import { Container, Dropdown, Feed, Grid, Statistic } from 'semantic-ui-react';
+import { Dropdown, Feed, Grid, List, Statistic } from 'semantic-ui-react';
 
 import { i18next } from '@translations/i18next';
 
@@ -70,18 +70,19 @@ export class Feedback extends Component {
 
               <Feed.Extra>
                 {error && <Error error={error} />}
-                <Grid>
+                <Grid stackable>
                   <Grid.Row verticalAlign={'middle'}>
-                    <Grid.Column width={8}>
+                    <Grid.Column computer={10} mobile={16} tablet={16}>
                       <MessageContent content={comment?.content} />
                     </Grid.Column>
-                    <Grid.Column width={8}>
+
+                    <Grid.Column computer={6} only={'computer'}>
                       <Grid centered columns={topics.length}>
                         {topics.map((topic, index) => {
                           const topicValue = Math.round(topic.rating);
                           return (
                             <Grid.Column textAlign="center">
-                              <Statistic size={'mini'}>
+                              <Statistic size={'tiny'}>
                                 <Statistic.Label>{topic.name}</Statistic.Label>
                                 <Statistic.Value>
                                   {topicValue}/5
@@ -91,6 +92,32 @@ export class Feedback extends Component {
                           );
                         })}
                       </Grid>
+                    </Grid.Column>
+
+                    <Grid.Column width={16} only={'tablet mobile'}>
+                      <List selection verticalAlign={'middle'} size={'large'}>
+                        {topics.map((topic, index) => {
+                          const topicValue = Math.round(topic.rating);
+                          return (
+                            <List.Item>
+                              <List.Content floated={'right'}>
+                                <List.Header>
+                                  <p>{topicValue}/5</p>
+                                </List.Header>
+                              </List.Content>
+                              <List.Content
+                                style={{
+                                  textTransform: 'capitalize',
+                                }}
+                              >
+                                <List.Header>
+                                  <p>{topic.name}</p>
+                                </List.Header>
+                              </List.Content>
+                            </List.Item>
+                          );
+                        })}
+                      </List>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
