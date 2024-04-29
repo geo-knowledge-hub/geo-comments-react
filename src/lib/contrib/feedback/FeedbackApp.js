@@ -7,6 +7,7 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Provider } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
@@ -22,8 +23,13 @@ export class FeedbackApp extends Component {
     super(props);
 
     // Extracting parameters
-    const { commentsApi, record, defaultQueryParams, userIsAuthenticated } =
-      this.props;
+    const {
+      commentsApi,
+      record,
+      defaultQueryParams,
+      userIsAuthenticated,
+      buttonText,
+    } = this.props;
 
     // Creating Comments API client
     const commentsApiClient = new CommentsApiClient(
@@ -44,6 +50,8 @@ export class FeedbackApp extends Component {
     };
 
     this.store = configureStore(appConfig);
+
+    this.text = buttonText;
   }
 
   render() {
@@ -59,7 +67,7 @@ export class FeedbackApp extends Component {
           animated={'fade'}
         >
           <Icon name={'users'} size={'large'} />
-          <b>{i18next.t('Learn the community experience with this package')}</b>
+          <b>{this.text}</b>
         </Button>
 
         <FeedbackSpace
@@ -72,3 +80,15 @@ export class FeedbackApp extends Component {
     );
   }
 }
+
+FeedbackApp.propTypes = {
+  commentsApi: PropTypes.object,
+  record: PropTypes.object,
+  defaultQueryParams: PropTypes.object,
+  userIsAuthenticated: PropTypes.object,
+  buttonText: PropTypes.string,
+};
+
+FeedbackApp.defaultProps = {
+  buttonText: i18next.t('Learn the community experience with this content'),
+};

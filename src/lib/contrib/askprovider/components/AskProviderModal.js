@@ -41,12 +41,12 @@ const AskProviderModalComponent = ({ isModalOpen, onModalClose, user }) => {
                         setMessageVisibility(false);
                       }}
                       header={i18next.t(
-                        'Get in touch with the Knowledge Provider'
+                        'Get in touch with the Provider'
                       )}
                       content={i18next.t(
-                        'Knowledge Providers do their best to bring you ' +
+                        'Providers do their best to bring you ' +
                           'the most helpful content. However, sometimes it is necessary to ask. In this' +
-                          ' tab, you can talk directly to the Knowledge Provider. Ask your question and keep in touch.'
+                          ' tab, you can talk directly to the Provider. Ask your question and keep in touch.'
                       )}
                     />
                   )}
