@@ -7,6 +7,7 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Provider } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
@@ -25,8 +26,13 @@ export class AskProviderApp extends Component {
     super(props);
 
     // Extracting parameters
-    const { commentsApi, record, defaultQueryParams, userIsAuthenticated } =
-      this.props;
+    const {
+      commentsApi,
+      record,
+      defaultQueryParams,
+      userIsAuthenticated,
+      buttonText,
+    } = this.props;
 
     // Creating Comments API client
     const commentsApiClient = new CommentsApiClient(
@@ -47,6 +53,8 @@ export class AskProviderApp extends Component {
     };
 
     this.store = configureStore(appConfig);
+
+    this.text = buttonText;
   }
 
   render() {
@@ -62,7 +70,7 @@ export class AskProviderApp extends Component {
           animated={'fade'}
         >
           <Icon name={'comments outline'} size={'large'} />
-          <b>{i18next.t('Ask the provider')}</b>
+          <b>{this.text}</b>
         </Button>
         <AskProviderModal
           onModalClose={() => {
@@ -74,3 +82,15 @@ export class AskProviderApp extends Component {
     );
   }
 }
+
+AskProviderApp.propTypes = {
+  commentsApi: PropTypes.object,
+  record: PropTypes.object,
+  defaultQueryParams: PropTypes.object,
+  userIsAuthenticated: PropTypes.object,
+  buttonText: PropTypes.string,
+};
+
+AskProviderApp.defaultProps = {
+  buttonText: i18next.t('Ask the provider'),
+};

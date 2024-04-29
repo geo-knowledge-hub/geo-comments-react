@@ -102,7 +102,7 @@ export class FeedbackModalComponent extends Component {
                       <Label circular color={'blue'} key={'blue'}>
                         1
                       </Label>{' '}
-                      {i18next.t('Share your experience with this element')}
+                      {i18next.t('Share your experience with this content.')}
                     </Container>
                     <FeedbackTopics categories={categories} />
                     {errors.topics && (
@@ -123,7 +123,7 @@ export class FeedbackModalComponent extends Component {
                         2
                       </Label>{' '}
                       {i18next.t(
-                        'Tell the community a bit about your experiences with this element.'
+                        'Tell the community a bit about your experiences.'
                       )}
                     </Container>
                     <FeedbackText />

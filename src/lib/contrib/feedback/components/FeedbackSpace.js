@@ -165,14 +165,14 @@ export class FeedbackSpaceComponent extends Component {
               <Container>
                 <Grid stackable>
                   <Grid.Row>
-                    <Grid.Column computer={12} mobile={16} tablet={16}>
+                    <Grid.Column computer={13} mobile={16} tablet={16}>
                       <p className={'feedback feedback-metrics-title'}>
                         Community feedback for <b>{recordTitle}</b>
                       </p>
                     </Grid.Column>
 
                     <Grid.Column
-                      width={4}
+                      width={3}
                       textAlign={'right'}
                       only={'computer'}
                     >
