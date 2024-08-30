@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "start": "react-scripts start",
+    "prepare": "rimraf dist && NODE_ENV=production rollup -c --failAfterWarnings",
     "build": "rimraf dist && NODE_ENV=production rollup -c --failAfterWarnings",
     "edit-linked-package": "json -I -f ./dist/package.json -e 'this.module=\"esm/index.js\", this.main=\"cjs/index.js\"' ",
     "prelink-dist": "cp package.json ./dist && npm run edit-linked-package",
